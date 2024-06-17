@@ -46,5 +46,5 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/fastapi_app:${{{ github.sha }} .
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/fastapi_app:${{ github.sha }} .
         docker push ${{ secrets.DOCKER_USERNAME }}/fastapi_app:${{ github.sha  }}
