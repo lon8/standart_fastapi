@@ -1,0 +1,23 @@
+---
+- name: Развертывание FastAPI приложения
+  hosts: myserver
+  become: true
+  tasks:
+    - name: Убедиться, что Docker установлен
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Запустить Docker
+      systemd:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Копировать Docker Compose файл
+      copy:
+        src: ./ansible/docker-compose.yml
+        dest: /home/ubuntu/docker-compose.yml
+
+    - name: Запустить контейнеры
+      command: docker-compose -f /home/ubuntu/docker-compose.yml up -d

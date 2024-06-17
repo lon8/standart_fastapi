@@ -48,3 +48,37 @@ jobs:
       run: |
         docker build -t ${{ secrets.DOCKER_USERNAME }}/fastapi_app:${{ github.sha }} .
         docker push ${{ secrets.DOCKER_USERNAME }}/fastapi_app:${{ github.sha  }}
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11'
+
+    - name: Install Ansible
+      run: |
+        python -m pip install --upgrade pip
+        pip install ansible
+
+    - name: Generate Docker Compose file
+      run: |
+        echo "
+        version: '3'
+        services:
+          fastapi:
+            image: ${{ secrets.DOCKER_USERNAME}}/fastapi_app:${{ github.sha }}
+            ports:
+              - '8888:8888'
+        " > ansible/docker-compose.yml
+
+    - name: Run Ansible Playbook
+      env:
+        ANSIBLE_HOST_KEY_CHECKING: 'false'
+      run: |
+        ansible-playbook -i ansible/inventory.ini ansible/deploy.yml --private-key ${{ secrets.SSH_PRIVATE_KEY }} -u ubuntu
