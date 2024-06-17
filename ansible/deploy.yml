@@ -17,7 +17,7 @@
     - name: Копировать Docker Compose файл
       copy:
         src: docker-compose.yml
-        dest: /home/ubuntu/docker-compose.yml
+        dest: /home/votanak/docker-compose.yml
 
     - name: Запустить контейнеры
-      command: docker-compose -f /home/ubuntu/docker-compose.yml up -d
+      command: docker-compose -f /home/votanak/docker-compose.yml up -d
