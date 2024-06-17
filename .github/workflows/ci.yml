@@ -28,7 +28,7 @@ jobs:
 
     - name: Run tests
       run: |
-        pytest app
+        pytest
 
   docker:
     runs-on: ubuntu-latest
