@@ -5,7 +5,7 @@
   tasks:
     - name: Убедиться, что Docker установлен
       apt:
-        name: docker.io
+        name: docker
         state: present
 
     - name: Запустить Docker
@@ -21,4 +21,3 @@
 
     - name: Запустить контейнеры
       command: docker-compose -f /home/ubuntu/docker-compose.yml up -d
-      
