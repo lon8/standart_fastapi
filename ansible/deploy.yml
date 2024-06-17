@@ -16,7 +16,7 @@
 
     - name: Копировать Docker Compose файл
       copy:
-        src: ./ansible/docker-compose.yml
+        src: docker-compose.yml
         dest: /home/ubuntu/docker-compose.yml
 
     - name: Запустить контейнеры
