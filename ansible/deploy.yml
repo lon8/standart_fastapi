@@ -21,3 +21,4 @@
 
     - name: Запустить контейнеры
       command: docker-compose -f /home/ubuntu/docker-compose.yml up -d
+      
